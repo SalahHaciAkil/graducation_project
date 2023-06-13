@@ -8,6 +8,10 @@ urlpatterns = [
     path('user-emotion/', views.analyzeUserEmotions, name='user-emotions'),
     path('youtube-summarizer/', views.summarizeYoutubeVideo,
          name='youtube-summarizer'),
+    path('analyze-bitcoin/', views.bitcoinPriceAnalysis,
+         name='analyze-bitcoin'),
+    path('generate-meal/', views.create_meals,
+         name='meal-generator'),
 
 
 ]
