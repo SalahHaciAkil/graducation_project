@@ -36,7 +36,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'name', '_id', 'isAdmin']
 
     def get_name(self, obj):
-        name = obj.first_name + ' ' + obj.last_name
+        name = obj.first_name
         if name == ' ':
             name = obj.email
 

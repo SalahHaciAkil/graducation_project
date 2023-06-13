@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
 @api_view(['GET'])
-def getUserProfile(request, pk):
+def getUserProfile(request):
     user = request.user
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
@@ -59,3 +59,21 @@ def getUsers(request):
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUserProfile(request):
+    user = request.user
+    serializer = UserSerializerWithToken(user, many=False)
+    data = request.data
+    user.first_name = data['name']
+    user.username = data['email']
+    user.email = data['email']
+    if data['password'] != '':
+        user.password = make_password(data['password'])
+    
+    user.save()
+    # even if the serializer is defined before the user update, 
+    # it will still return the updated user, because the serializer is not called until the return statement
+    return Response(serializer.data)
+    

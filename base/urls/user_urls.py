@@ -12,5 +12,6 @@ urlpatterns = [
     path('login/', TokenObtainPairView.as_view(serializer_class=CustomTokenObtainPairSerializer), name='token_obtain_pair'),
     path('register/', views.register_user, name='register'),
     path('profile/', views.getUserProfile, name='user-profile'),
+    path('update-profile/', views.updateUserProfile, name='update-user-profile'),
     path('', views.getUsers, name='users-profiles'), 
 ]

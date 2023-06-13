@@ -22,10 +22,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/products', include ('base.urls.product_urls')),
-    path('api/users', include ('base.urls.user_urls')),
+    path('api/products/', include('base.urls.product_urls')),
+    path('api/users/', include('base.urls.user_urls')),
     # path('api/orders', include ('base.urls.order_urls')),
-    path('api/openai', include ('base.urls.openai_urls')),
+    path('api/openai/', include('base.urls.openai_urls')),
+
 ]
 # the following is for the media files, we need it here to be able to access the media files from the browser
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
