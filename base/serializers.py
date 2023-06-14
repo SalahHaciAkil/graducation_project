@@ -1,21 +1,5 @@
-# 
-# 
-# 
 # Serializers, similar to mappers, they are used to convert data to JSON format
-# Serializers, similar to mappers, they are used to convert data to JSON format
-# Serializers, similar to mappers, they are used to convert data to JSON format
-# Serializers, similar to mappers, they are used to convert data to JSON format
-# Serializers, similar to mappers, they are used to convert data to JSON format
-# Serializers, similar to mappers, they are used to convert data to JSON format
-# Serializers, similar to mappers, they are used to convert data to JSON format
-# Serializers, similar to mappers, they are used to convert data to JSON format
-# Serializers, similar to mappers, they are used to convert data to JSON format
-# Serializers, similar to mappers, they are used to convert data to JSON format
-# Serializers, similar to mappers, they are used to convert data to JSON format
-# Serializers, similar to mappers, they are used to convert data to JSON format
-# 
-# 
-# 
+
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken    
