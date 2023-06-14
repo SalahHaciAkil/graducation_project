@@ -12,6 +12,7 @@ urlpatterns = [
          name='analyze-bitcoin'),
     path('generate-meal/', views.create_meals,
          name='meal-generator'),
+    path('generate-image/', views.generate_image, name='generate-image')
 
 
 ]

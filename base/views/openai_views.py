@@ -8,8 +8,17 @@ from pytube import YouTube
 import re
 import requests
 import json
-import time
 load_dotenv()
+
+
+def checkOpenaiKeyValidity(key):
+    openai.api_key = key
+    try:
+        openai.Engine.retrieve('davinci')
+        return True
+    except Exception as error:
+        print(error)
+        return False
 
 
 @api_view(['GET'])
@@ -18,6 +27,10 @@ def analyzeUserEmotions(request):
         emotions = request.query_params.get('emotions')
         prompt = request.query_params.get('prompt')
         open_ai_key = request.headers.get('x-openai-api-key')
+        if not checkOpenaiKeyValidity(open_ai_key):
+            return Response({
+                'error': 'Something wrong happen, plz make sure your open ai key is valid'
+            }, status=400)
 
         def gpt_classify_sentiment(prompt, emotions):
             openai.api_key = open_ai_key
@@ -54,10 +67,7 @@ def summarizeYoutubeVideo(request):
     link = request.query_params.get('url')
     open_ai_key = request.headers.get('x-openai-api-key')
     openai.api_key = open_ai_key
-    try:
-        openai.Engine.retrieve('davinci')
-    except Exception as error:
-        print(error)
+    if not checkOpenaiKeyValidity(open_ai_key):
         return Response({
             'error': 'Something wrong happen, plz make sure your open ai key is valid'
         }, status=400)
@@ -170,7 +180,10 @@ def bitcoinPriceAnalysis(request):
     query = request.query_params.get('query')
     open_ai_key = request.headers.get('x-openai-api-key')
     openai.api_key = open_ai_key
-
+    if not checkOpenaiKeyValidity(open_ai_key):
+        return Response({
+            'error': 'Something wrong happen, plz make sure your open ai key is valid'
+        }, status=400)
     url = "https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd/history"
     querystring = {
         "referenceCurrencyUuid": "yhjMzLPhuIDl", "timePeriod": "7d"}
@@ -212,6 +225,10 @@ def create_meals(request):
     kcal = request.query_params.get('kcal')
     type_of_meal = request.query_params.get('type_of_meal')
     open_ai_key = request.headers.get('x-openai-api-key')
+    if not checkOpenaiKeyValidity(open_ai_key):
+        return Response({
+            'error': 'Something wrong happen, plz make sure your open ai key is valid'
+        }, status=400)
     openai.api_key = open_ai_key
 
     prompt = f'''Create a healthy daily {type_of_meal} meal plan for breakfast, lunch, and dinner based on the following ingredients: {ingredients}.
@@ -241,3 +258,25 @@ def create_meals(request):
     )
     r = response['choices'][0].message.content
     return Response(r)
+
+
+@api_view(['GET'])
+def generate_image(request):
+    title = request.query_params.get('title')
+    open_ai_key = request.headers.get('x-openai-api-key')
+    size = request.query_params.get('size')
+    if not checkOpenaiKeyValidity(open_ai_key):
+        return Response({
+            'error': 'Something wrong happen, plz make sure your open ai key is valid'
+        }, status=400)
+    openai.api_key = open_ai_key
+    image_prompt = f'''Create a great image for the following title: {title}, high quality image, be creative and make it look professional.'''
+
+    response = openai.Image.create(
+        prompt=image_prompt,
+        n=1,
+        size=f"""{size}x{size}""",
+    )
+
+    image_url = response['data'][0]['url']
+    return Response(image_url)
