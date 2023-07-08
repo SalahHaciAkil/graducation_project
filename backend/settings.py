@@ -28,7 +28,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ["64.226.89.18", "localhost"]
+# http://www.incentiveai.tech/ is the domain name of the website
+ALLOWED_HOSTS = ["64.226.89.18", "localhost", "127.0.0.1", "www.incentiveai.tech", "*.incentiveai.tech"]
 
 
 # Application definition
